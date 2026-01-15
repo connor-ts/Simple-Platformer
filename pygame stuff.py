@@ -13,88 +13,81 @@ pygame.init()
 screen = pygame.display.set_mode((1280, 720)) # 720p reso
 pygame.display.set_caption("low quality platformer")
 clock = pygame.time.Clock()
+# im also kinda js banking on the fact that mac and windows have the same listing of fonts so its not a different font when ur on mac :sob:
+font = pygame.font.SysFont(None, 36) # lets me search system fonts and use system fonts
 
 # platforms
 platforms = [
-    (300, 500, 200, 20),
-    (600, 400, 150, 20),     
-    (900, 300, 200, 20)         
+    pygame.Rect(300, 500, 200, 20),
+    pygame.Rect(600, 400, 150, 20),     
+    pygame.Rect(900, 300, 200, 20)         
 ]
+
+# random variables 
+
+groundY = 600
+pgapx = (220, 350)
+pgapy = (-120, 120)
 
 # play stuffs lol
 class Player:
     def __init__(self, x, y):
         ##size and pos
-        self.width = 50 
-        self.height = 50
-        self.x = x          
-        self.y = y   
+        self.rect = (x, y, 50, 50) 
         ##movement
         self.speed = 5
         self.velocity_xaxis = 0      # velocity x
         self.velocity_yaxis = 0      # velocity y
         self.jpower = -15       # how strong the jump is
-        self.grav = 1        # normal gravity
-        self.grounded = True  # checks if the player is standing on something, may help later with adding in features once the boilerplate is done
+        self.grav = 1    # normal gravity
+        ###
+        self.jpressed = False
+        self.jcount = 0
+        self.grounded = False  # checks if the player is standing on something, may help later with adding in features once the boilerplate is done
+        
         ##dash
+        self.dashing = False
         self.dash_s = 20 #dash speed
         self.dash_t = 10 #dash time
-        self.dash_c = 0 #counter for dash timer
-        self.dashing = False
+        self.dash_timer = 0 # dash timer /// not to be confused with time, time of dash is how long the physical dash is versus the timer which is in between 
+        self.dash_c = 180 # time between dashes
+        self.dash_cd_timer = 0 
+        self.dash_p = False # checks if the Lshift is pressed /// held counts and will not allow dashing if Lshift is pressed again
 
     def movement(self, keys, platforms):
         # normal movement stuff
-        move_dir = 0
+        move = 0
         if keys[pygame.K_a]: # key -> a
-                move_dir = -1
+            move = -1
         if keys[pygame.K_d]: # key -> d
-                move_dir = 1
-        if not self.dashing:
-            self.x += move_dir * self.speed
+            move = 1
+        if not self.dashing: # i think this is right, i mean it shouldnt break 
+            pass # it should mean that when u dash when not moving itll like not move you 
 
 ## jumping func     
-        if keys[pygame.K_SPACE] and self.grounded: # makes it so u cant jump when ur in the sky bc this aint flappy bird 
-            self.velocity_yaxis = self.jpower
-            self.grounded = False # indicates player is not on ground
-        #application of gravity
-        self.velocity_yaxis += self.grav 
-        self.y += self.velocity_yaxis
-        #platform collision 
-        ## ai code was created to understand the logic of the player and platforms colliding
-        ### this is NOT the code generated but similar to the practice code
-        for pm in platforms:
-            px, py, pw, ph = pm # px -> platform x axis /// py -> platform y axis /// pw -> platform width /// ph -> platform height    
-            if self.velocity_yaxis >=0 and self.x +self.width > px and self.x < px + pw:
-                # logic to tell the player that they are on ground when touching a platform
-                ## which allows them to jump again and dash again
-                if self.y + self.height >= py and self.y + self.height <= py + ph:
-                    self.y = py - self.height
-                    self.velocity_yaxis = 0
-                    self.grounded = True
-        #application of floor collision
-        if self.y >= 600: # ground 
-            self.y = 600
-            self.velocity_yaxis = 0
-            self.grounded = True
+        if keys[pygame.K_SPACE] and not self.jpressed 
+            if self.jcount < 2: # max of 2 jumps might change this later if i wanna make like fancy stuff with the jumping or like upgrades
+                self.velocity_yaxis = self.jpower
+                self.jcount += 1 # just adds one jump to the counter to keep track so that u dont jump more than 2 jumps
+            self.jpressed = True
+        if not keys[pygame.K_LSHIFT] # basically if the key aint pressed dont jump ;p
+            self.jpressed = False
 
-## dash func
-        if keys[pygame.K_LSHIFT] and not self.dashing: # does a burst in movement when hitting left shift
-            self.dashing = True
-            self.dash_c = self.dash_t
-                #application of horizontal movement
-            if keys[pygame.K_a]:
-                self.velocity_xaxis = -self.dash_s
-            elif keys [pygame.K_d]:
-                self.velocity_xaxis = self.dash_s
-            else:
-                pass
+        if keys[pygame.K_LSHIFT] and not self.dash_p and self.dash_cd_timer <= 0:
+            self.dashing = True 
+            self.dash_timer = self.dash_t
+            self.dash_cd_timer = self.dash_c
+            self.velocity_yaxis = self.dash_speed if move >= 0 else -self.dash_speed # ai to figure this out because i thinky it looks weird that theres an if and else on the same line
+            self.dash_p = True
+        if not keys[pygame.K_LSHIFT]:
+            self.dash_p = False
 
-        if self.dashing:
-            self.x += self.velocity_xaxis
-            self.dash_c -= 1
-            if self.dash_c <= 0:
-                self.dashing = False
-                self.velocity_xaxis = 0
+        if self.dashing
+
+        
+
+
+                
 
 # testing features and stuff here
     def draw(self, screen):
@@ -131,3 +124,4 @@ sys.exit()
 ### memory leaks which programs like discord and often chat messengers and game development softwares like unity and roblox studio are notorious for constantly using 
 ### memory until it spikes to 100% and crashing the program or your pc, knowing how windows 11 is poorly coded in some aspects, without sys.exit sometimes ill close a pygame window 
 ### but windows wont actually close it until you end task in task manager  
+
