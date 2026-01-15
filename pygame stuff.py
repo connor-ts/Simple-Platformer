@@ -106,8 +106,6 @@ class Player:
 
 player = Player(100, 600)
 
-
-
 # game loop
 playing = True
 while playing: # simple loop to keep the window running
@@ -128,3 +126,8 @@ while playing: # simple loop to keep the window running
 
 pygame.quit()
 sys.exit()
+
+### more info on sys because i feel i wasnt clear enough to mac users lol, uhh basically theres these things called 
+### memory leaks which programs like discord and often chat messengers and game development softwares like unity and roblox studio are notorious for constantly using 
+### memory until it spikes to 100% and crashing the program or your pc, knowing how windows 11 is poorly coded in some aspects, without sys.exit sometimes ill close a pygame window 
+### but windows wont actually close it until you end task in task manager  
