@@ -24,15 +24,15 @@ All or most of the written code should be commented with what each part does, or
 
 ##### AI PROMPTS
 
-* How would I add recursively adding platforms to “this code”
+-  How would I add recursively adding platforms to “this code”
 
-* “This code” was my code at the time,
+& “This code” was my code at the time,
 
-** I had tried to use information instead of just copy and pasting but it wouldnt work numerous times.
+&& I had tried to use information instead of just copy and pasting but it wouldnt work numerous times.
 
-* How do I make my player class collide with another rect?
+-  How do I make my player class collide with another rect?
 
-* Then it asked to see my code, again i tried to do it manually but it wouldnt connect correctly.
+& Then it asked to see my code, again i tried to do it manually but it wouldnt connect correctly.
 
 ###### Notes
 
