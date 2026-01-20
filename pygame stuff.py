@@ -17,6 +17,10 @@ import sys # i might remove this later because its only really helpful in my eye
 
 pygame.init()
 
+# meow meow cat stuff because i think the sprite is more fire lol
+cat = image.load('cat.png')
+cat = transform.scale(cat, (50, 50))
+
 # setup stuffs
 screen = pygame.display.set_mode((1280, 720)) # i dont remember the actual res of the screens at 
 # school but i dont want to make them too large or small so i assume that 720p reso- is enough :p
@@ -83,8 +87,7 @@ class cube:
 # touches another rectangle as the background isnt a rectangle it can stand, touch, etc on top of the rectangle
 ## ive intentionally left the ai comments so u can see the difference between the code.
 
-    def draw(self, xcam): # just draws the cube
-        pygame.draw.rect(screen, White, (self.rect.x - xcam, self.rect.y, self.rect.width, self.rect.height))
+screen.blit(cat, (x, y))
 
 # objects
 player = cube(200, 500) # cube dimensions
@@ -145,7 +148,6 @@ while playing:
 # id rather have a game that works and i like rather than one that runs off hopes and dreams
 
         player.draw(xcam) # drawing the camera for the player
-
        
         score = max(score, player.rect.x) # keeps score 
         score_text = font1.render(f"Score: {score}", True, White) # font and color from: https://www.pygame.org/docs/ref/font.html
@@ -165,3 +167,4 @@ while playing:
 pygame.quit()
 sys.exit() # ive used no sys in the past and had memory leaks, obviously this isnt using a lot of ram but i still like to have it there from,
            # half from habit and also it helps with other things
+
