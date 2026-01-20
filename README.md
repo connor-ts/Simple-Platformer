@@ -53,7 +53,7 @@ Other:
 - https://share.google/MfMsRKfAFmBtraru6
 
 - I had google searched: "does python have a try similar to java" and got the response below in the ai summary, although not using the command yet, i may use it later 
-'''
+~~~
   Yes, Python has a mechanism for exception handling very similar to Java's, using the try keyword. 
 The key difference in syntax is that Java uses catch, while Python uses except. Both languages also support finally blocks for cleanup code that must always run, and Python additionally has an else block which executes only if no exception occurred in the try block. 
 Comparison of Syntax
@@ -87,7 +87,7 @@ Syntax: The main difference is the use of except in Python instead of catch in J
 Checked Exceptions: Java has "checked exceptions," which must be explicitly caught or declared in the method signature, a feature Python does not have.
 else block: Python includes an else block (executed only upon successful completion of the try block), which Java lacks a direct equivalent for.
 try-with-resources: Java has a specific try-with-resources statement for automatically closing resources like files, a pattern handled differently (often using context managers) in Python. 
-'''
+~~~
 
 
 
