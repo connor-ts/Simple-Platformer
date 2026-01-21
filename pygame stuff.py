@@ -18,8 +18,8 @@ import sys # i might remove this later because its only really helpful in my eye
 pygame.init()
 
 # meow meow cat stuff because i think the sprite is more fire lol
-cat = image.load('cat.png')
-cat = transform.scale(cat, (50, 50))
+cat = pygame.image.load('cat.png')
+cat = pygame.transform.scale(cat, (40, 40))
 
 # setup stuffs
 screen = pygame.display.set_mode((1280, 720)) # i dont remember the actual res of the screens at 
@@ -67,6 +67,8 @@ class cube:
         if self.y_velocity > 20: # terminal velocity cap, because somehow it was causing issues with the collision 
             self.y_velocity = 20 ## not a lot but some helpful advice was found: https://www.pygame.org/docs/ref/math.html // but mostly on google
         self.rect.y += self.y_velocity
+    def draw(self, xcam):
+        screen.blit(cat, (self.rect.x - xcam, self.rect.y))# draws the kitty well no, it just puts the image lol
 
 ### LLM was used to fix
         # Collision detection
@@ -87,8 +89,6 @@ class cube:
 # touches another rectangle as the background isnt a rectangle it can stand, touch, etc on top of the rectangle
 ## ive intentionally left the ai comments so u can see the difference between the code.
 
-screen.blit(cat, (x, y))
-
 # objects
 player = cube(200, 500) # cube dimensions
 platforms = [pygame.Rect(150, 550, 220, 20)] # dimensions of the generating platforms
@@ -102,7 +102,6 @@ playing = True
 while playing:
     clock.tick(60) # fps
     screen.fill(Background) # gives the game a background obv 
-    
     for event in pygame.event.get():    # we did this in class
         if event.type == pygame.QUIT:   # and it was also in the mario game example
             playing = False
@@ -167,4 +166,3 @@ while playing:
 pygame.quit()
 sys.exit() # ive used no sys in the past and had memory leaks, obviously this isnt using a lot of ram but i still like to have it there from,
            # half from habit and also it helps with other things
-
